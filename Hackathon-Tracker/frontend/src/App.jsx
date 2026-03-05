@@ -10,17 +10,17 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminTeamsList from './pages/AdminTeamsList';
 import AdminTeamDetail from './pages/AdminTeamDetail';
 import Welcome from './pages/Welcome';
+import LandingPage from './pages/LandingPage';
 import { AdminProvider } from './context/AdminContext';
 
-const RedirectToLanding = () => {
+const RootRoute = () => {
   const { user } = useContext(AuthContext);
 
   if (user) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  window.location.href = '/landing/index.html';
-  return null;
+  return <LandingPage />;
 };
 
 // Protected Route Wrapper
@@ -50,7 +50,7 @@ function App() {
     <AuthProvider>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
-          <Route path="/" element={<RedirectToLanding />} />
+          <Route path="/" element={<RootRoute />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<Login isAdmin={true} />} />
